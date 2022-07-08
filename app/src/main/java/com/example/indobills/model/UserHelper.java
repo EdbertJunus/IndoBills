@@ -24,8 +24,8 @@ public class UserHelper {
         helper.close();
     }
 
-    public User findUserById(String id){
-        String query = "SELECT * FROM MsUser WHERE user_id = '" + id + "'";
+    public User findUserByUsername(String userName){
+        String query = "SELECT * FROM MsUser WHERE user_name = '" + userName + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
 
@@ -33,14 +33,14 @@ public class UserHelper {
         String UserName, UserPassword, UserHandphone;
 
         if(cursor != null){
-            do{
+            while(cursor.moveToNext()){
                 UserName = cursor.getString(cursor.getColumnIndexOrThrow("user_name"));
                 UserPassword = cursor.getString(cursor.getColumnIndexOrThrow("user_password"));
                 UserHandphone = cursor.getString(cursor.getColumnIndexOrThrow("user_handphone"));
 
                 user = new User(UserName, UserPassword, UserHandphone);
 
-            }while(cursor.moveToNext());
+            };
         }
         return user;
     }

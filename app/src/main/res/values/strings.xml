@@ -3,4 +3,10 @@
     <string name="login_et_username">Username/ID:</string>
     <string name="login_et_password">Password:</string>
     <string name="login_btn">Login</string>
+    <string name="login_btn_redirect">Have no account ? Register Now</string>
+    <string name="register_tv_title">Register Now</string>
+    <string name="register_et_handphone">Handphone:</string>
+    <string name="register_et_confirm_pass">Confirm Password:</string>
+    <string name="register_btn">Register</string>
+    <string name="register_btn_redirect">Already have an account? Login now</string>
 </resources>
