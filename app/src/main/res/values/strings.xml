@@ -9,4 +9,19 @@
     <string name="register_et_confirm_pass">Confirm Password:</string>
     <string name="register_btn">Register</string>
     <string name="register_btn_redirect">Already have an account? Login now</string>
+    <!--error-->
+    <string name="error_passwordLength">Password must be at least 8 characters</string>
+    <string name="error_password_alphaNumeric">Password must contain both letters and numbers</string>
+    <string name="error_phone_numberDigits">Phone must be between 10 to 12 digits inclusively</string>
+    <string name="error_phone">Phone must starts with 08</string>
+    <string name="error_phone_mustBeNumber">Phone must be digits</string>
+    <string name="error_confirm_password">Password and Confirm Password must be the same</string>
+    <string name="error_username_space">Username must not have space</string>
+    <string name="info_register_success">Registration Success</string>
+    <string name="error_username_exist">Username exist</string>
+    <!--fragment-->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_btm_transaction_list">Transaction List</string>
+    <string name="nav_btm_logout">Log out</string>
+    <string name="nav_btm_dummy">[NAV_MENU]</string>
 </resources>

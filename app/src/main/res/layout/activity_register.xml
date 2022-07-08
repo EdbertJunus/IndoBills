@@ -53,6 +53,34 @@
 
             </LinearLayout>
 
+
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="25dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_et_handphone"
+                    android:textSize="22sp"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <EditText
+                    android:id="@+id/et_register_handphone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_border"
+                    android:inputType="phone"
+                    android:padding="8dp"
+                    />
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -79,31 +107,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="25dp"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/register_et_handphone"
-                    android:textSize="22sp"
-                    android:textAlignment="center"
-                    android:layout_marginBottom="10dp"
-                    />
-
-                <EditText
-                    android:id="@+id/et_register_handphone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/et_border"
-                    android:inputType="textPassword"
-                    android:padding="8dp"
-                    />
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -152,7 +155,7 @@
                 android:textSize="16sp"
                 android:background="@drawable/btn_borderless"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 />
         </LinearLayout>
 

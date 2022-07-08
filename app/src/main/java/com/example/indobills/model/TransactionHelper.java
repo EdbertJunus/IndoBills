@@ -66,7 +66,7 @@ public class TransactionHelper {
 
     public void insertTransaction(Transaction transaction){
         String query = "INSERT INTO MsTransaction VALUES " +
-                "(hex(randomblob(16))), '" + transaction.getTransactionDate() + "', '"+ transaction.getBillId() + "', '" + transaction.getTransactionAmount() + "', '"+ transaction.getTransactionPaymentMethod() + "', '" +"', '"+ transaction.getTransactionStatus() +"')";
+                "((hex(randomblob(16))), '" + transaction.getTransactionDate() + "', '"+ transaction.getBillId() + "', '" + transaction.getTransactionAmount() + "', '"+ transaction.getTransactionPaymentMethod() + "', '" +"', '"+ transaction.getTransactionStatus() +"')";
         db.execSQL(query);
     }
 

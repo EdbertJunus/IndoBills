@@ -17,8 +17,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText username, password;
     private Button login, redirect;
     private UserHelper userHelper;
-    private String toastMessage;
-    private Boolean dataMatch = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,32 +45,24 @@ public class MainActivity extends AppCompatActivity {
                       userHelper = new UserHelper(MainActivity.this);
                       userHelper.open();
                       User user = userHelper.findUserByUsername(usernameStr);
-
+                      userHelper.close();
                       //check if username not exist
                       if(user == null){
-                          toastMessage = "Username does not exist";
-                          dataMatch = false;
-                      }else{
+                          Toast.makeText(MainActivity.this, "Username does not exist", Toast.LENGTH_SHORT).show();
+                          return;
+                      }else if(!passwordStr.equals(user.getUserPassword())){
                           //check is password false
-                          if(!passwordStr.equals(user.getUserPassword())){
-                              toastMessage = "Password input is wrong";
-                              dataMatch = false;
-                          }
-                      }
-
-                      userHelper.close();
-                      Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
-
-                      //Data input is wrong
-                      if(!dataMatch){
+                          System.out.println("password: "+passwordStr+ " correct: "+user.getUserPassword());
+                          Toast.makeText(MainActivity.this, "Password input is wrong", Toast.LENGTH_SHORT).show();
                           return;
                       }
+                          //Data input is correct
+                          Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-                      //Data input is correct
-                      Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                      intent.putExtra("userName", user.getUserName());
-                      intent.putExtra("userId", user.getUserId());
-                      startActivity(intent);
+                          Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                          intent.putExtra("userName", user.getUserName());
+                          intent.putExtra("userId", user.getUserId());
+                          startActivity(intent);
 
                 }
             }
