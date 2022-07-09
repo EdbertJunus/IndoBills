@@ -18,6 +18,9 @@
         </activity>
         <activity android:name=".RegisterActivity" android:exported="true"/>
         <activity android:name=".HomeActivity" android:exported="true"/>
+        <activity android:name=".BillsDetailActivity" android:exported="true" />
+        <activity android:name=".BillTransactionActivity" android:exported="true"/>
+        <activity android:name=".TransactionActivity" android:exported="true"/>
     </application>
 
 </manifest>

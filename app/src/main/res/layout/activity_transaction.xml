@@ -15,29 +15,43 @@
     <LinearLayout
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/fragment_nav_bottom"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_nav_top"
+        android:layout_above="@+id/fragment_nav_bottom"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingVertical="20dp">
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/fragment_wifi_item"
+            android:id="@+id/fragment_bill_item"
             />
 
-        <androidx.fragment.app.FragmentContainerView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fragment_phone_item"
-            />
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/bill_transaction_shape"
+            android:gravity="center"
+            >
 
-        <androidx.fragment.app.FragmentContainerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fragment_water_item"
-            />
+            <androidx.fragment.app.FragmentContainerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_transaction_loading"
+                />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_transaction_status"
+
+                />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

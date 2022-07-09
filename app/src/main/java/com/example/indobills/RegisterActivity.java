@@ -17,7 +17,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText username, password, handphone, confirm_password;
     private Button register, redirect;
     private UserHelper userHelper;
-    private String toastMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

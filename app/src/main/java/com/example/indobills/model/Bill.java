@@ -4,9 +4,9 @@ public class Bill {
     private String BillId;
     private String BillType;
     private String BillProviderName;
-    private Integer BillProviderNumber;
+    private String BillProviderNumber;
 
-    public Bill(String billId, String billType, String billProviderName, Integer billProviderNumber) {
+    public Bill(String billId, String billType, String billProviderName, String billProviderNumber) {
         BillId = billId;
         BillType = billType;
         BillProviderName = billProviderName;
@@ -37,11 +37,11 @@ public class Bill {
         BillProviderName = billProviderName;
     }
 
-    public Integer getBillProviderNumber() {
+    public String getBillProviderNumber() {
         return BillProviderNumber;
     }
 
-    public void setBillProviderNumber(Integer billProviderNumber) {
+    public void setBillProviderNumber(String billProviderNumber) {
         BillProviderNumber = billProviderNumber;
     }
 }

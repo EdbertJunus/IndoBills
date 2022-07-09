@@ -36,15 +36,18 @@ public class TransactionHelper {
         cursor.moveToFirst();
 
         Transaction transaction = null;
-        String BillId, TransactionDate, TransactionPaymentMethod, UserId;
-        Integer TransactionAmount;
+        String BillId;
+        String TransactionDate;
+        String TransactionPaymentMethod;
+        String UserId;
+        String TransactionAmount;
         Boolean TransactionStatus;
 
         if(cursor != null){
             do{
                 TransactionDate = cursor.getString(cursor.getColumnIndexOrThrow("transaction_date"));
                 BillId = cursor.getString(cursor.getColumnIndexOrThrow("bill_id"));
-                TransactionAmount = cursor.getInt(cursor.getColumnIndexOrThrow("transaction_amount"));
+                TransactionAmount = cursor.getString(cursor.getColumnIndexOrThrow("transaction_amount"));
                 TransactionPaymentMethod = cursor.getString(cursor.getColumnIndexOrThrow("transaction_payment_method"));
                 TransactionStatus = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndexOrThrow("transaction_status")));
                 UserId = cursor.getString(cursor.getColumnIndexOrThrow("user_id"));
@@ -78,14 +81,14 @@ public class TransactionHelper {
 
         Transaction transaction = null;
         String BillId, TransactionDate, TransactionPaymentMethod, UserId;
-        Integer TransactionAmount;
+        String TransactionAmount;
         Boolean TransactionStatus;
 
         if(cursor.getCount() > 0){
             do{
                 TransactionDate = cursor.getString(cursor.getColumnIndexOrThrow("transaction_date"));
                 BillId = cursor.getString(cursor.getColumnIndexOrThrow("bill_id"));
-                TransactionAmount = cursor.getInt(cursor.getColumnIndexOrThrow("transaction_amount"));
+                TransactionAmount = cursor.getString(cursor.getColumnIndexOrThrow("transaction_amount"));
                 TransactionPaymentMethod = cursor.getString(cursor.getColumnIndexOrThrow("transaction_payment_method"));
                 TransactionStatus = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndexOrThrow("transaction_status")));
                 UserId = cursor.getString(cursor.getColumnIndexOrThrow("user_id"));

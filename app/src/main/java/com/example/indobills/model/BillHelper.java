@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class BillHelper {
     private Context ctx;
     private DatabaseHelper helper;
@@ -30,18 +32,41 @@ public class BillHelper {
 
         Bill bill = null;
         String BillType, BillProviderName;
-        Integer BillProviderNumber;
+        String BillProviderNumber;
 
         if(cursor != null){
             do{
                 BillType = cursor.getString(cursor.getColumnIndexOrThrow("bill_type"));
                 BillProviderName = cursor.getString(cursor.getColumnIndexOrThrow("bill_provider_name"));
-                BillProviderNumber = cursor.getInt(cursor.getColumnIndexOrThrow("bill_provider_number"));
+                BillProviderNumber = cursor.getString(cursor.getColumnIndexOrThrow("bill_provider_number"));
 
                 bill = new Bill(BillId, BillType, BillProviderName, BillProviderNumber);
 
             }while(cursor.moveToNext());
         }
         return bill;
+    }
+
+    public ArrayList<Bill> findBillExist(String BillName, String BillType){
+        String query = "SELECT * FROM MsBill WHERE bill_provider_name = '"+ BillName +
+                "' AND bill_type = '" + BillType + "'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        Bill bill = null;
+        String BillId, BillProviderType, BillProviderName, BillProviderNumber;
+        ArrayList<Bill> billArrayList = new ArrayList<>();
+
+        if(cursor.moveToFirst()){
+            do{
+                BillId = cursor.getString(cursor.getColumnIndexOrThrow("bill_id"));
+                BillProviderType = cursor.getString(cursor.getColumnIndexOrThrow("bill_type"));
+                BillProviderName = cursor.getString(cursor.getColumnIndexOrThrow("bill_provider_name"));
+                BillProviderNumber = cursor.getString(cursor.getColumnIndexOrThrow("bill_provider_number"));
+
+                bill = new Bill(BillId, BillProviderType, BillProviderName, BillProviderNumber);
+                billArrayList.add(bill);
+            }while(cursor.moveToNext());
+        }
+        return billArrayList;
     }
 }

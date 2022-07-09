@@ -6,12 +6,12 @@ public class Transaction {
     private String TransactionId;
     private Date TransactionDate;
     private String BillId;
-    private Integer TransactionAmount;
+    private String TransactionAmount;
     private String TransactionPaymentMethod;
     private Boolean TransactionStatus;
     private String UserId;
 
-    public Transaction(Date transactionDate, String billId, Integer transactionAmount, String transactionPaymentMethod, Boolean transactionStatus, String userId) {
+    public Transaction(Date transactionDate, String billId, String transactionAmount, String transactionPaymentMethod, Boolean transactionStatus, String userId) {
         TransactionDate = transactionDate;
         BillId = billId;
         TransactionAmount = transactionAmount;
@@ -52,11 +52,11 @@ public class Transaction {
         UserId = userId;
     }
 
-    public Integer getTransactionAmount() {
+    public String getTransactionAmount() {
         return TransactionAmount;
     }
 
-    public void setTransactionAmount(Integer transactionAmount) {
+    public void setTransactionAmount(String transactionAmount) {
         TransactionAmount = transactionAmount;
     }
 

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NavigationBottom extends Fragment {
@@ -24,6 +25,7 @@ public class NavigationBottom extends Fragment {
         view = inflater.inflate(R.layout.fragment_navigation_bottom, container, false);
         tvLeftMenu = view.findViewById(R.id.left_nav);
         tvRightMenu = view.findViewById(R.id.log_out);
+
         String navMenu = getArguments().getString("navMenu");
 
         currentContext = container.getContext();
@@ -36,7 +38,23 @@ public class NavigationBottom extends Fragment {
             }
         });
 
+
         tvLeftMenu.setText(navMenu);
+
+        tvLeftMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+
+                if(navMenu.contains("Home")){
+                    intent = new Intent(currentContext, HomeActivity.class);
+                }else{
+                    intent = new Intent(currentContext, MainActivity.class);
+                }
+                startActivity(intent);
+
+            }
+        });
 
         return view;
     }
