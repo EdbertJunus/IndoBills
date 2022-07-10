@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 public class TransactionDetailActivity extends AppCompatActivity {
 
     private String code, name, number, amount, method, type;
@@ -55,7 +58,19 @@ public class TransactionDetailActivity extends AppCompatActivity {
         tvCard.setText(code);
         tvName.setText(type+" Provider: "+name);
         tvNumber.setText(type+" Number: "+number);
-        tvAmount.setText("Amount: "+amount);
+
+        DecimalFormat indonesiaRp = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols rpFormat = new DecimalFormatSymbols();
+
+        rpFormat.setCurrencySymbol("Rp. ");
+        rpFormat.setGroupingSeparator(',');
+
+        indonesiaRp.setDecimalFormatSymbols(rpFormat);
+
+        String formattedPrice = indonesiaRp.format(Integer.parseInt(amount));
+        formattedPrice = formattedPrice.substring(0, formattedPrice.length()-3);
+
+        tvAmount.setText("Amount: "+formattedPrice+",-");
         tvMethod.setText("Via: "+method);
 
         if(type.toLowerCase().contains("phone")){

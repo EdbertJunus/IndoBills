@@ -65,7 +65,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
 
         if(type.equals("Wifi")){
             providerCode = type.substring(0,1) + number;
-
+            holder.ivTransaction.setImageResource(R.drawable.ic_baseline_wifi_24);
         }else if(type.equals("Phone") ){
             holder.ivTransaction.setImageResource(R.mipmap.phone_border_foreground);
             providerCode = type.substring(0,1) + number;
@@ -73,7 +73,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         }else{
             holder.ivTransaction.setImageResource(R.mipmap.water_drop_foreground);
             providerCode = "A"+ number;
-
         }
 
         holder.tvTransaction.setText(providerCode);

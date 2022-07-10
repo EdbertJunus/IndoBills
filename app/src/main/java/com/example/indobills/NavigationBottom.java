@@ -28,6 +28,15 @@ public class NavigationBottom extends Fragment {
         tvRightMenu = view.findViewById(R.id.log_out);
 
         String navMenu = getArguments().getString("navMenu");
+        Boolean onProcessed = getArguments().getBoolean("onProcess");
+
+        if(onProcessed){
+            tvLeftMenu.setVisibility(View.GONE);
+            tvRightMenu.setVisibility(View.GONE);
+        }else{
+            tvLeftMenu.setVisibility(View.VISIBLE);
+            tvRightMenu.setVisibility(View.VISIBLE);
+        }
 
         currentContext = container.getContext();
 

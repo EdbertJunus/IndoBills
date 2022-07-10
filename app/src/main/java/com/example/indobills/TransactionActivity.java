@@ -1,8 +1,12 @@
 package com.example.indobills;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,10 +43,9 @@ import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class TransactionActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class TransactionActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private String textBills, billName, billType, billVia, billNumber, billAmount, transactionError
-            ,BillId = "", UserId, TransactionId;
+    private String textBills, billName, billType, billVia, billNumber, billAmount, transactionError, BillId = "", UserId, TransactionId;
     private Date TransactionDate;
     private TransactionHelper transactionHelper;
     private BillHelper billHelper;
@@ -70,10 +75,11 @@ public class TransactionActivity extends AppCompatActivity implements OnMapReady
         billAmount = getIntent().getStringExtra("inputBillAmount");
         billVia = getIntent().getStringExtra("inputBillVia");
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
             bundle.putString("navMenu", "Home");
             bundle.putBoolean("navBack", false);
+            bundle.putBoolean("onProcess", true);
 
             Bundle itemBundle = new Bundle();
             itemBundle.putString("item_text", textBills);
@@ -91,7 +97,7 @@ public class TransactionActivity extends AppCompatActivity implements OnMapReady
 
     }
 
-    private void init(){
+    private void init() {
         //check if bill exist
         billHelper = new BillHelper(TransactionActivity.this);
         billHelper.open();
@@ -108,19 +114,19 @@ public class TransactionActivity extends AppCompatActivity implements OnMapReady
         //Bill Id If False as initialize
         BillId = billName + "#" + billNumber + "#" + billType;
 
-        for (Bill bill:billArrayList) {
-            if(bill.getBillProviderNumber().equals(billNumber)){
+        for (Bill bill : billArrayList) {
+            if (bill.getBillProviderNumber().equals(billNumber)) {
                 billNumIsCorrect = true;
                 BillId = bill.getBillId();
             }
         }
 
-        if(billArrayList.size() == 0){
+        if (billArrayList.size() == 0) {
             //Provider Name Wrong
             transactionStatus = false;
             transactionError = "Name";
 
-        }else if(!billNumIsCorrect){
+        } else if (!billNumIsCorrect) {
             //Provider Number Wrong
             transactionStatus = false;
             transactionError = "Number";
@@ -131,11 +137,13 @@ public class TransactionActivity extends AppCompatActivity implements OnMapReady
         Bundle navBundle = new Bundle();
         navBundle.putBoolean("navBack", true);
         navBundle.putBoolean("backToHome", true);
+        navBundle.putBoolean("onProcess", false);
+        navBundle.putString("navMenu", "Home");
 
-        UserId = getSharedPreferences("loginStatus", Context.MODE_PRIVATE).getString("UserId","");
+        UserId = getSharedPreferences("loginStatus", Context.MODE_PRIVATE).getString("UserId", "");
         TransactionDate = new Date();
 
-        if(transactionStatus){
+        if (transactionStatus) {
             bundle.putBoolean("transactionStatus", true);
             bundle.putString("transactionProviderName", billName);
             bundle.putString("transactionProviderNumber", billNumber);
@@ -143,7 +151,7 @@ public class TransactionActivity extends AppCompatActivity implements OnMapReady
             bundle.putString("transactionProviderAmount", billAmount);
             bundle.putString("transactionPaymentMethod", billVia);
 
-        }else{
+        } else {
             bundle.putBoolean("transactionStatus", false);
             bundle.putString("transactionProviderType", billType);
             bundle.putString("transactionError", transactionError);
@@ -163,19 +171,42 @@ public class TransactionActivity extends AppCompatActivity implements OnMapReady
                 fragmentStatus.setVisibility(View.VISIBLE);
                 fragmentLoading.setVisibility(View.GONE);
                 ft.replace(R.id.fragment_transaction_status, TransactionStatus.class, bundle)
-                        .replace(R.id.fragment_nav_top, TopNav.class, navBundle).commit();
+                        .replace(R.id.fragment_nav_top, TopNav.class, navBundle)
+                        .replace(R.id.fragment_nav_bottom, NavigationBottom.class, navBundle)
+                        .commit();
+
+                if (transactionStatus) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        NotificationChannel channel = new NotificationChannel("notification1", "SuccessTransaction", NotificationManager.IMPORTANCE_HIGH);
+                        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                        notificationManager.createNotificationChannel(channel);
+                    }
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                            TransactionActivity.this, "notification1"
+                    )
+                            .setSmallIcon(R.drawable.ic_baseline_info_24)
+                            .setContentTitle("Your Billing is Successfully Paid!")
+                            .setContentText("You can check on the IndoBills's transaction list")
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                            .setAutoCancel(true);
+
+                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(
+                            TransactionActivity.this);
+                    notificationManagerCompat.notify(0, builder.build());
+                }
 
                 SupportMapFragment mapFragment = SupportMapFragment.newInstance();
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.map, mapFragment)
+                        .add(R.id.map_transaction, mapFragment)
                         .commit();
 
-                getSupportFragmentManager().findFragmentById(R.id.map);
-                mapFragment.getMapAsync(TransactionActivity.this::onMapReady);
+                mapFragment.getMapAsync(TransactionActivity.this);
 
             }
         };
-        handler.postDelayed(updateData,2000);
+        handler.postDelayed(updateData, 2000);
 
     }
 
