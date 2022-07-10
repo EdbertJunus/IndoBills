@@ -28,9 +28,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(query);
 
         query = "INSERT INTO MsBill VALUES " +
-                "(hex(randomblob(16)), 'Wifi', 'Indihome', '123456'), " +
-                "(hex(randomblob(16)), 'Phone', 'Telkom', '21123456789'), " +
-                "(hex(randomblob(16)), 'Water', 'PDAM', '100340')";
+                "(hex(randomblob(16)), 'Wifi', 'WAIFU', '123456'), " +
+                "(hex(randomblob(16)), 'Phone', 'CALL_WAIFU', '21123456789'), " +
+                "(hex(randomblob(16)), 'Water', 'SUITON', '100340')";
         sqLiteDatabase.execSQL(query);
     }
 
