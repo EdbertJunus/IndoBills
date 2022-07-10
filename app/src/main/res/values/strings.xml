@@ -46,7 +46,7 @@
     <string name="loading_transaction_process">Your Transaction\'s still Being Processed</string>
     <string name="transaction_status_title">[TRANSACTION_STATUS]</string>
     <string name="transaction_status_msg">[TRANSACTION_MSG]</string>
-    <string name="ts_success_detail">Detail</string>
+    <string name="ts_success_detail"><u>Detail</u></string>
     <string name="ts_success_detail_name">[PROVIDER_NAME]</string>
     <string name="ts_success_detail_number">[PROVIDER_NUMBER]</string>
     <string name="ts_success_detail_amount">[PROVIDER_AMOUNT]</string>
@@ -54,4 +54,8 @@
     <string name="ts_fail_cs">CS Contact</string>
     <string name="ts_fail_mobile">Mobile: +1 8764 324</string>
     <string name="ts_fail_location">Location: </string>
+    <string name="transaction_detail_dummy_status">[DUMMY_STATUS]</string>
+    <string name="transaction_card_code">[CODE]</string>
+    <string name="transaction_list_title"><u>Transaction List</u></string>
+    <string name="title_activity_maps">Map</string>
 </resources>

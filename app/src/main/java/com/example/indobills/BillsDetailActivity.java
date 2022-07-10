@@ -18,6 +18,11 @@ public class BillsDetailActivity extends AppCompatActivity {
     private EditText etName, etNumber;
 
     @Override
+    public void onBackPressed() {
+        return;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bills_detail);

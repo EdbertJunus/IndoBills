@@ -29,6 +29,10 @@ public class BillTransactionActivity extends AppCompatActivity {
     private EditText etAmountInput;
     private Button btnSubmit;
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

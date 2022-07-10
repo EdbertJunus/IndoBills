@@ -27,7 +27,9 @@ public class BillItem extends Fragment {
 
         tvBills.setText(tvText);
         if(tvText.toLowerCase().contains("phone")){
-            ivBills.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_local_phone_24));
+            ivBills.setImageResource(R.mipmap.phone_border_foreground);
+        }else if(tvText.toLowerCase().contains("water")){
+            ivBills.setImageResource(R.mipmap.water_drop_foreground);
         }
 
         return view;

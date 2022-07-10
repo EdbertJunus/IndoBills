@@ -2,6 +2,7 @@ package com.example.indobills;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -33,7 +34,12 @@ public class NavigationBottom extends Fragment {
         tvRightMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SharedPreferences sp = currentContext.getSharedPreferences("loginStatus", Context.MODE_PRIVATE);
+                sp.edit().clear().commit();
+
                 Intent intent = new Intent(currentContext, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -49,8 +55,9 @@ public class NavigationBottom extends Fragment {
                 if(navMenu.contains("Home")){
                     intent = new Intent(currentContext, HomeActivity.class);
                 }else{
-                    intent = new Intent(currentContext, MainActivity.class);
+                    intent = new Intent(currentContext, TransactionListActivity.class);
                 }
+
                 startActivity(intent);
 
             }

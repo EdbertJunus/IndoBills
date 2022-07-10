@@ -11,7 +11,8 @@ public class Transaction {
     private Boolean TransactionStatus;
     private String UserId;
 
-    public Transaction(Date transactionDate, String billId, String transactionAmount, String transactionPaymentMethod, Boolean transactionStatus, String userId) {
+    public Transaction(String transactionId, Date transactionDate, String billId, String transactionAmount, String transactionPaymentMethod, Boolean transactionStatus, String userId) {
+        TransactionId = transactionId;
         TransactionDate = transactionDate;
         BillId = billId;
         TransactionAmount = transactionAmount;

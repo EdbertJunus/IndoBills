@@ -36,15 +36,12 @@ public class TransactionHelper {
         cursor.moveToFirst();
 
         Transaction transaction = null;
-        String BillId;
-        String TransactionDate;
-        String TransactionPaymentMethod;
-        String UserId;
-        String TransactionAmount;
+        String BillId, TransactionDate, TransactionPaymentMethod, UserId, TransactionAmount, TransactionId;
         Boolean TransactionStatus;
 
         if(cursor != null){
             do{
+                TransactionId = cursor.getString(cursor.getColumnIndexOrThrow("transaction_id"));
                 TransactionDate = cursor.getString(cursor.getColumnIndexOrThrow("transaction_date"));
                 BillId = cursor.getString(cursor.getColumnIndexOrThrow("bill_id"));
                 TransactionAmount = cursor.getString(cursor.getColumnIndexOrThrow("transaction_amount"));
@@ -52,7 +49,7 @@ public class TransactionHelper {
                 TransactionStatus = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndexOrThrow("transaction_status")));
                 UserId = cursor.getString(cursor.getColumnIndexOrThrow("user_id"));
 
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
                 Date date = new Date();
                 try {
                     date = formatter.parse(TransactionDate);
@@ -60,7 +57,7 @@ public class TransactionHelper {
                     e.printStackTrace();
                 }
 
-                transaction = new Transaction(date, BillId, TransactionAmount, TransactionPaymentMethod, TransactionStatus, UserId);
+                transaction = new Transaction(TransactionId, date, BillId, TransactionAmount, TransactionPaymentMethod, TransactionStatus, UserId);
 
             }while(cursor.moveToNext());
         }
@@ -69,7 +66,10 @@ public class TransactionHelper {
 
     public void insertTransaction(Transaction transaction){
         String query = "INSERT INTO MsTransaction VALUES " +
-                "((hex(randomblob(16))), '" + transaction.getTransactionDate() + "', '"+ transaction.getBillId() + "', '" + transaction.getTransactionAmount() + "', '"+ transaction.getTransactionPaymentMethod() + "', '" +"', '"+ transaction.getTransactionStatus() +"')";
+                "((hex(randomblob(16))), '" + transaction.getTransactionDate()
+                + "', '"+ transaction.getBillId() + "', '" + transaction.getTransactionAmount()
+                + "', '"+ transaction.getTransactionPaymentMethod() + "', '"+ transaction.getTransactionStatus()
+                + "', '"+ transaction.getUserId() +"')";
         db.execSQL(query);
     }
 
@@ -80,12 +80,12 @@ public class TransactionHelper {
         cursor.moveToFirst();
 
         Transaction transaction = null;
-        String BillId, TransactionDate, TransactionPaymentMethod, UserId;
-        String TransactionAmount;
+        String BillId, TransactionDate, TransactionPaymentMethod, UserId, TransactionAmount, TransactionId;
         Boolean TransactionStatus;
 
         if(cursor.getCount() > 0){
             do{
+                TransactionId = cursor.getString(cursor.getColumnIndexOrThrow("transaction_id"));
                 TransactionDate = cursor.getString(cursor.getColumnIndexOrThrow("transaction_date"));
                 BillId = cursor.getString(cursor.getColumnIndexOrThrow("bill_id"));
                 TransactionAmount = cursor.getString(cursor.getColumnIndexOrThrow("transaction_amount"));
@@ -93,7 +93,7 @@ public class TransactionHelper {
                 TransactionStatus = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndexOrThrow("transaction_status")));
                 UserId = cursor.getString(cursor.getColumnIndexOrThrow("user_id"));
 
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
                 Date date = new Date();
                 try {
                     date = formatter.parse(TransactionDate);
@@ -101,7 +101,7 @@ public class TransactionHelper {
                     e.printStackTrace();
                 }
 
-                transaction = new Transaction(date, BillId, TransactionAmount, TransactionPaymentMethod, TransactionStatus, UserId);
+                transaction = new Transaction(TransactionId, date, BillId, TransactionAmount, TransactionPaymentMethod, TransactionStatus, UserId);
 
                 transactionArrayList.add(transaction);
                 cursor.moveToNext();

@@ -27,20 +27,40 @@ public class UserHelper {
     public User findUserByUsername(String userName){
         String query = "SELECT * FROM MsUser WHERE user_name = '" + userName + "'";
         Cursor cursor = db.rawQuery(query, null);
-//        cursor.moveToFirst();
 
         User user = null;
-        String UserName, UserPassword, UserHandphone;
-
-
+        String UserName, UserPassword, UserHandphone, UserId;
 
         if(cursor.moveToFirst()){
             do{
+                UserId = cursor.getString(cursor.getColumnIndexOrThrow("user_id"));
                 UserName = cursor.getString(cursor.getColumnIndexOrThrow("user_name"));
                 UserPassword = cursor.getString(cursor.getColumnIndexOrThrow("user_password"));
                 UserHandphone = cursor.getString(cursor.getColumnIndexOrThrow("user_handphone"));
 
                 user = new User(UserName, UserPassword, UserHandphone);
+                user.setUserId(UserId);
+            }while(cursor.moveToNext());
+        }
+        return user;
+    }
+
+    public User findUserByUserId(String userId){
+        String query = "SELECT * FROM MsUser WHERE user_id = '" + userId + "'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        User user = null;
+        String UserName, UserPassword, UserHandphone, UserId;
+
+        if(cursor.moveToFirst()){
+            do{
+                UserId = cursor.getString(cursor.getColumnIndexOrThrow("user_id"));
+                UserName = cursor.getString(cursor.getColumnIndexOrThrow("user_name"));
+                UserPassword = cursor.getString(cursor.getColumnIndexOrThrow("user_password"));
+                UserHandphone = cursor.getString(cursor.getColumnIndexOrThrow("user_handphone"));
+
+                user = new User(UserName, UserPassword, UserHandphone);
+                user.setUserId(UserId);
             }while(cursor.moveToNext());
         }
         return user;

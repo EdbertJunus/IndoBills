@@ -10,6 +10,11 @@ import androidx.fragment.app.FragmentContainerView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
     private FragmentContainerView wifiBill, waterBill, phoneBill;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
